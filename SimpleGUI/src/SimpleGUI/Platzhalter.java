@@ -3,9 +3,9 @@ package SimpleGUI;
 import javax.swing.*;
 import java.awt.*;
 
-public class Platzehalter extends JPanel
+public class Platzhalter extends JPanel
 {
-	public Platzehalter()
+	public Platzhalter()
     {
         setBackground(Color.WHITE);
     }
