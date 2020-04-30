@@ -12,14 +12,15 @@ public class BedienLeiste extends JPanel
 	JButton blau;
 	Square sq;
 	Random zufall;
-	double fehler = 0.2;			//Wahrscheinlichkeit eine falsche Farbe anzuzeigen; Wert zwischen 0 und 1
+	Agent ag;
+	double fehler = 0.1;			//Wahrscheinlichkeit eine falsche Farbe anzuzeigen; Wert zwischen 0 und 1
 	ActionListener listener;
 	
     
     public BedienLeiste(Square sq)
     {
     	this.sq = sq;
-    	gruen = new JButton("Grün");
+    	gruen = new JButton("GrÃ¼n");
     	rot = new JButton("Rot");
     	blau = new JButton("Blau");
     	
@@ -37,6 +38,8 @@ public class BedienLeiste extends JPanel
         gruen.addActionListener(listener);
         rot.addActionListener(listener);
         blau.addActionListener(listener);
+        
+        
     }
     
     public Boolean falscheFarbe()
@@ -53,7 +56,56 @@ public class BedienLeiste extends JPanel
     
     public void setFalscheFarbe(Color farbe)
     {
-    	sq.setColor(Color.WHITE);
+    	sq.setNextColor(farbe);
+    	
+    	if(farbe.equals(Color.RED))
+    	{
+    		if(sq.getColor().equals(Color.GREEN))
+    		{
+    			sq.setColor(Color.BLUE);
+    		}
+    		else if(sq.getColor().equals(Color.BLUE))
+    		{
+    			sq.setColor(Color.GREEN);
+    		}
+    		else
+    		{
+    			sq.setColor(Color.GRAY);
+    		}
+    	}
+    	if(farbe.equals(Color.BLUE))
+    	{
+    		if(sq.getColor().equals(Color.GREEN))
+    		{
+    			sq.setColor(Color.RED);
+    		}
+    		else if(sq.getColor().equals(Color.RED))
+    		{
+    			sq.setColor(Color.GREEN);
+    		}
+    		else
+    		{
+    			sq.setColor(Color.GRAY);
+    		}
+    	}
+    	if(farbe.equals(Color.GREEN))
+    	{
+    		if(sq.getColor().equals(Color.RED))
+    		{
+    			sq.setColor(Color.BLUE);
+    		}
+    		else if(sq.getColor().equals(Color.BLUE))
+    		{
+    			sq.setColor(Color.RED);
+    		}
+    		else
+    		{
+    			sq.setColor(Color.GRAY);
+    		}
+    	}
+    	
+    	ag = new Agent(sq);
+    	ag.start();
 		//sq.setColor(farbe);
     }
 
@@ -77,12 +129,10 @@ public class BedienLeiste extends JPanel
             {
             	if(falscheFarbe())
             	{
-            		warte();
             		setFalscheFarbe(Color.GREEN);
             	}
             	else
             	{
-            		warte();
             		sq.setColor(Color.GREEN);
             	}
             }
@@ -90,12 +140,10 @@ public class BedienLeiste extends JPanel
             {
             	if(falscheFarbe())
             	{
-            		warte();
             		setFalscheFarbe(Color.RED);
             	}
             	else
             	{
-            		warte();
             		sq.setColor(Color.RED);
             	}
             }
@@ -103,12 +151,10 @@ public class BedienLeiste extends JPanel
             {
             	if(falscheFarbe())
             	{
-            		warte();
             		setFalscheFarbe(Color.BLUE);
             	}
             	else
             	{
-            		warte();
             		sq.setColor(Color.BLUE);
             	}
             }
